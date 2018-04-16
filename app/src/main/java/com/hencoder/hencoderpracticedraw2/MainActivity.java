@@ -13,15 +13,13 @@ import android.view.Menu;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     TabLayout tabLayout;
     ViewPager pager;
-    List<PageModel> pageModels = new ArrayList<>();
-
+    List<PageModel> pageModels=new ArrayList<>();
+    
     {
-       
-        pageModels.add(new PageModel(R.layout.sample_lighting_color_filter, R.string.title_lighting_color_filter, R.layout.practice_lighting_color_filter));
-        pageModels.add(new PageModel(R.layout.sample_color_mask_color_filter, R.string.title_color_matrix_color_filter, R.layout.practice_color_matrix_color_filter));
+        
         pageModels.add(new PageModel(R.layout.sample_xfermode, R.string.title_xfermode, R.layout.practice_xfermode));
         pageModels.add(new PageModel(R.layout.sample_stroke_cap, R.string.title_stroke_cap, R.layout.practice_stroke_cap));
         pageModels.add(new PageModel(R.layout.sample_stroke_join, R.string.title_stroke_join, R.layout.practice_stroke_join));
@@ -36,51 +34,53 @@ public class MainActivity extends AppCompatActivity {
         pageModels.add(new PageModel(R.layout.sample_sweep_gradient, R.string.title_sweep_gradient, R.layout.practice_sweep_gradient));
         pageModels.add(new PageModel(R.layout.sample_bitmap_shader, R.string.title_bitmap_shader, R.layout.practice_bitmap_shader));
         pageModels.add(new PageModel(R.layout.sample_compose_shader, R.string.title_compose_shader, R.layout.practice_compose_shader));
+        pageModels.add(new PageModel(R.layout.sample_lighting_color_filter, R.string.title_lighting_color_filter, R.layout.practice_lighting_color_filter));
+        pageModels.add(new PageModel(R.layout.sample_color_mask_color_filter, R.string.title_color_matrix_color_filter, R.layout.practice_color_matrix_color_filter));
     }
-
+    
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-
+        
+        pager=(ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()){
+            
             @Override
-            public Fragment getItem(int position) {
-                PageModel pageModel = pageModels.get(position);
+            public Fragment getItem(int position){
+                PageModel pageModel=pageModels.get(position);
                 return PageFragment.newInstance(pageModel.sampleLayoutRes, pageModel.practiceLayoutRes);
             }
-
+            
             @Override
-            public int getCount() {
+            public int getCount(){
                 return pageModels.size();
             }
-
+            
             @Override
-            public CharSequence getPageTitle(int position) {
+            public CharSequence getPageTitle(int position){
                 return getString(pageModels.get(position).titleRes);
             }
         });
-
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        
+        tabLayout=(TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(pager);
     }
-
+    
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu){
         return super.onCreateOptionsMenu(menu);
     }
-
-    private class PageModel {
+    
+    private class PageModel{
         @LayoutRes int sampleLayoutRes;
         @StringRes int titleRes;
         @LayoutRes int practiceLayoutRes;
-
-        PageModel(@LayoutRes int sampleLayoutRes, @StringRes int titleRes, @LayoutRes int practiceLayoutRes) {
-            this.sampleLayoutRes = sampleLayoutRes;
-            this.titleRes = titleRes;
-            this.practiceLayoutRes = practiceLayoutRes;
+        
+        PageModel(@LayoutRes int sampleLayoutRes, @StringRes int titleRes, @LayoutRes int practiceLayoutRes){
+            this.sampleLayoutRes=sampleLayoutRes;
+            this.titleRes=titleRes;
+            this.practiceLayoutRes=practiceLayoutRes;
         }
     }
 }
